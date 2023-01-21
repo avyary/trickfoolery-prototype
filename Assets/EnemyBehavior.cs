@@ -22,7 +22,7 @@ public class EnemyBehavior : MonoBehaviour
         originalColor = GetComponent<MeshRenderer>().material.color;
         flashInterval = chargeTime / 6f;
         lineRend.positionCount = 2;
-        player = GameObject.Find("Capsule");
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
