@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3222254970732224221}
   - component: {fileID: 490664827196949699}
   - component: {fileID: 7365540214591790540}
+  - component: {fileID: 4128063338409911549}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -113,9 +114,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeTime: 3
-  attackTime: 1.5
+  attackTime: 1
   lineRend: {fileID: 7365540214591790540}
   player: {fileID: 730346120344962646, guid: cef0674179ff62a48992a385eed47577, type: 3}
+  attackSpeed: 2
 --- !u!120 &7365540214591790540
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -215,3 +217,19 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!54 &4128063338409911549
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8603539924977179112}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
