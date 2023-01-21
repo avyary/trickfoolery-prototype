@@ -28,7 +28,7 @@ public class MovementPlayer : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        _rigidbody.velocity += _transform.forward * _playerInput;
+        _rigidbody.velocity += _transform.forward * _playerInput * 0.25f;
         _userRot = _transform.rotation.eulerAngles;
         _userRot += new Vector3(0, _rotInput, 0);
         _transform.rotation = Quaternion.Euler(_userRot);
