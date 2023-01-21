@@ -8,12 +8,13 @@ public class EnemyBehavior : MonoBehaviour
     bool isAggro = false;
     bool isAttacking = false;
     public float chargeTime = 3f;
-    public float attackTime = 1.5f;
+    public float attackTime = 1f;
     float flashInterval;
     Color originalColor;
     public LineRenderer lineRend;
     public GameObject player;
     Vector3 direction;
+    public float attackSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class EnemyBehavior : MonoBehaviour
         originalColor = GetComponent<MeshRenderer>().material.color;
         flashInterval = chargeTime / 6f;
         lineRend.positionCount = 2;
-        player = GameObject.Find("Capsule");
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class EnemyBehavior : MonoBehaviour
 
         if (isAttacking)
         {
-            gameObject.transform.position += direction * Time.deltaTime; 
+            gameObject.transform.position += attackSpeed * direction * Time.deltaTime; 
         }
     }
 
@@ -63,6 +64,7 @@ public class EnemyBehavior : MonoBehaviour
     {   
         lineRend.SetPosition(0, gameObject.transform.position);
         direction = player.transform.position - gameObject.transform.position;
+        direction[1] = 0;
         lineRend.SetPosition(1, gameObject.transform.position + direction);
         lineRend.enabled = true;
         isCharging = true;
