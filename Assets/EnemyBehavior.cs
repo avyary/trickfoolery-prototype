@@ -13,6 +13,7 @@ public class EnemyBehavior : MonoBehaviour
     Color originalColor;
     public LineRenderer lineRend;
     public GameObject player;
+    Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,11 @@ public class EnemyBehavior : MonoBehaviour
             {
                 StartCoroutine(aggro());
             }
+        }
+
+        if (isAttacking)
+        {
+            gameObject.transform.position += direction * Time.deltaTime; 
         }
     }
 
@@ -56,8 +62,9 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator charge()
     {   
         lineRend.SetPosition(0, gameObject.transform.position);
-        Vector3 direction = player.transform.position - gameObject.transform.position;
+        direction = player.transform.position - gameObject.transform.position;
         lineRend.SetPosition(1, gameObject.transform.position + direction);
+        lineRend.enabled = true;
         isCharging = true;
         print("starting charge");
         GetComponent<MeshRenderer>().material.color = Color.red;
@@ -72,6 +79,7 @@ public class EnemyBehavior : MonoBehaviour
         yield return new WaitForSeconds(flashInterval * 2f);
         GetComponent<MeshRenderer>().material.color = Color.yellow;
         isCharging = false;
+        lineRend.enabled = false;
         print("finishing charge");
     }
 }
