@@ -28,14 +28,6 @@ public class EnemyBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))  // replace with trigger
-        {
-            if (!isAggro)
-            {
-                StartCoroutine(aggro());
-            }
-        }
-
         if (isAttacking)
         {
             gameObject.transform.position += attackSpeed * direction * Time.deltaTime; 
@@ -43,10 +35,13 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     IEnumerator aggro() {
-        isAggro = true;
-        StartCoroutine(charge());
-        yield return new WaitForSeconds(chargeTime);
-        StartCoroutine(attack());
+        if (transform.position.y <= 2.5f)
+        {
+            isAggro = true;
+            StartCoroutine(charge());
+            yield return new WaitForSeconds(chargeTime);
+            StartCoroutine(attack());
+        }
     }
 
     IEnumerator attack()
@@ -66,6 +61,8 @@ public class EnemyBehavior : MonoBehaviour
         direction = player.transform.position - gameObject.transform.position;
         direction[1] = 0;
         lineRend.SetPosition(1, gameObject.transform.position + direction);
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = rotation;
         lineRend.enabled = true;
         isCharging = true;
         print("starting charge");
@@ -83,5 +80,20 @@ public class EnemyBehavior : MonoBehaviour
         isCharging = false;
         lineRend.enabled = false;
         print("finishing charge");
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (!isAggro )
+        {
+            StartCoroutine(aggro());
+        }
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (isAttacking && collision.collider.GetType() == typeof(CapsuleCollider))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }
