@@ -5,7 +5,7 @@ using System;
 
 public class RandMove : MonoBehaviour
 {
-    private float speed = 5;
+    private float speed = 1.75f;
     private int repeatSpeed = 0;
     private int direction = 3;
     private int rotateTime = 0;
@@ -29,26 +29,30 @@ public class RandMove : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        System.Random rd = new System.Random();
+    {   
+        if (detected == false)
+        {
+            System.Random rd = new System.Random();
+
+            if (repeatSpeed < 2000){
+                repeatSpeed += rd.Next(3);
+            } else {
+                repeatSpeed = 0;
+                direction = rd.Next(1, 5);
+                rotateTime = 0;
+            } 
+
+
+            move(direction);
         
-        if (repeatSpeed < 2000){
-            repeatSpeed += rd.Next(3);
-        } else {
-            repeatSpeed = 0;
-            direction = rd.Next(1, 5);
-            rotateTime = 0;
-        } 
-
-
-        move(direction);
+        }
     }
 
     public void move(int direction) {
-        if (-90f <= transform.position.x 
-        && transform.position.x <= 90f 
-        && -90f <= transform.position.z
-        && transform.position.z <= 90f)
+        if (-6.5f <= transform.position.x 
+        && transform.position.x <= 6.5f 
+        && -6.5f <= transform.position.z
+        && transform.position.z <= 6.5f)
         {
             if (rotateTime < 180){
             if(direction == 1) {
